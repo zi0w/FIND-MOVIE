@@ -1,5 +1,3 @@
-//const API_KEY = "051069e60f71e2975dd5523b5e737485";
-
 const options = {
   method: "GET",
   headers: {
@@ -15,7 +13,26 @@ fetch(
   options
 )
   .then((response) => response.json())
-  .then((response) => console.log(response))
+  .then((response) => {
+    console.log(response.results);
+
+    response.results.forEach((element) => {
+      const tempHtml = `
+      <div class="card-box">
+        <div class="card-image-box">
+          <img class="movie-image" 
+          src="https://image.tmdb.org/t/p/w500${element.poster_path}" 
+          alt="${element.title} 포스터 이미지"/>
+        </div>
+        <div class="card-text-box">
+          <h4 class="movie-title">${element.title}</h4>
+          <p class="movie-rating">평점: ${element.vote_average}</p>
+        </div>
+      </div> 
+      `;
+      document.querySelector(".movie-container").innerHTML += tempHtml;
+    });
+  })
   // 에러 처리 -> 에러 발생시 콘솔에 에러 메세지 출력
   // 사용자 입장에서의 에러 처리가 필요하다(alert!)
   .catch((err) => {

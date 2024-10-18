@@ -4,18 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>movie project</title>
-
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
+    </style>
     <!-- script -->
     <script type="module" src="./script.js"></script>
     <!-- css -->
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <header>
-      <h1>영화 추천 사이트</h1>
+    <header class="header-section">
+      <div class="header-box">
+        <h1 class="header-title">FINDMOVIE</h1>
+        <input
+          class="header-input"
+          type="text"
+          placeholder="영화를 검색하세요..."
+        />
+        <button class="header-bookmark">북마크 목록 보기</button>
+      </div>
     </header>
-    <!--main태그 -->
-    <div id="movies-container"></div>
+
+    <main class="movie-container"></main>
+
     <footer></footer>
   </body>
 </html>
