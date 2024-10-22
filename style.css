@@ -36,13 +36,14 @@
   text-indent: 10px;
 }
 
-.header-bookmark {
+.header-bookmark-btn {
   width: 7%;
   height: 30px;
   background-color: transparent;
   color: #979c9f;
   border: 0.5px solid #979c9f;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .movie-container {
@@ -82,4 +83,87 @@
 .movie-rating {
   font-size: 0.9em;
   font-weight: 300;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+.modal-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-closing-btn {
+  display: flex;
+  justify-content: end;
+}
+
+.closing-btn {
+  background: transparent;
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  color: #0d0d0d;
+}
+
+.closing-btn:hover {
+  color: #fac504;
+}
+
+.modal-image {
+  width: 100%;
+  height: 400px;
+  background-color: red;
+  border-radius: 10px;
+}
+
+.modal-image-element {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.modal-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-date {
+  font-weight: 650;
+}
+
+.modal-rate {
+  font-weight: 650;
+}
+
+.add-bookmark-btn {
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: #0d0d0d;
+  color: #fac504;
+  font-weight: 500;
+  cursor: pointer;
 }

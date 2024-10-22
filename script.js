@@ -30,7 +30,7 @@ function displayMovies(movieList) {
 
   movieList.forEach((element) => {
     const tempHtml = `
-    <div class="card-box">
+    <div class="card-box" data-id="${element.id}">
       <div class="card-image-box">
         <img class="movie-image" 
         src="https://image.tmdb.org/t/p/w500${element.poster_path}" 
@@ -66,3 +66,52 @@ document.querySelector(".header-input").addEventListener("input", function () {
     filterMovies(searchInput);
   }, 500);
 });
+
+//모달
+const modal = document.querySelector(".modal");
+const modalClose = document.querySelector(".closing-btn");
+
+modalClose.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+document
+  .querySelector(".movie-container")
+  .addEventListener("click", (event) => {
+    const cardBox = event.target.closest(".card-box");
+    if (cardBox) {
+      const movieId = cardBox.getAttribute("data-id");
+      fetchMovieDetails(movieId);
+    }
+  });
+
+function fetchMovieDetails(movieId) {
+  const url = `https://api.themoviedb.org/3/movie/${movieId}?language=ko-KR`;
+
+  fetch(url, options)
+    .then((response) => response.json())
+    .then((movie) => {
+      updateModal(movie);
+      modal.style.display = "block";
+    })
+    .catch((err) => {
+      console.error("에러 발생: ", err);
+    });
+}
+
+function updateModal(movie) {
+  document.querySelector(".modal-title").textContent = movie.title;
+  document.querySelector(".modal-info").textContent = movie.overview;
+  document.querySelector(
+    ".modal-date"
+  ).textContent = `개봉일: ${movie.release_date}`;
+  document.querySelector(
+    ".modal-rate"
+  ).textContent = `평점: ${movie.vote_average}`;
+  document.querySelector(
+    ".modal-image-element"
+  ).src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  document.querySelector(
+    ".modal-image-element"
+  ).alt = `${movie.title} 포스터 이미지`;
+}
