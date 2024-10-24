@@ -1,5 +1,5 @@
-let movies = [];
-let currentMovie = null; // 모달에 표시된 영화 정보를 저장할 전역 변수(맨위로 올려야댐)
+let movies = []; // fetch로 받은 영화 정보를 담을 전역 변수
+let currentMovie = null; // 모달에 표시된 영화 정보를 저장할 전역 변수
 const bookmarkBtn = document.querySelector(".header-bookmark-btn");
 const movieContainer = document.querySelector(".movie-container");
 
@@ -27,21 +27,21 @@ fetch(
     alert("에러가 발생했습니다. 다시 시도해 주세요.");
   });
 
+// 영화 카드 렌더링
 function displayMovies(movieList) {
-  const movieContainer = document.querySelector(".movie-container");
   movieContainer.innerHTML = "";
 
-  movieList.forEach((element) => {
+  movieList.forEach((movie) => {
     const tempHtml = `
-    <div class="card-box" data-id="${element.id}">
+    <div class="card-box" data-id="${movie.id}">
       <div class="card-image-box">
         <img class="movie-image" 
-        src="https://image.tmdb.org/t/p/w500${element.poster_path}" 
-        alt="${element.title} 포스터 이미지"/>
+        src="https://image.tmdb.org/t/p/w500${movie.poster_path}" 
+        alt="${movie.title} 포스터 이미지"/>
       </div>
       <div class="card-text-box">
-        <h4 class="movie-title">${element.title}</h4>
-        <p class="movie-rating">평점: ${element.vote_average}</p>
+        <h4 class="movie-title">${movie.title}</h4>
+        <p class="movie-rating">평점: ${movie.vote_average}</p>
       </div>
     </div> 
     `;
@@ -61,14 +61,17 @@ function filterMovies(searchInput) {
 // 실시간 검색(디바운싱)
 let debounceTimer;
 
-document.querySelector(".header-input").addEventListener("input", function () {
+const headerInput = document.querySelector(".header-input");
+headerInput.addEventListener("input", function () {
   clearTimeout(debounceTimer);
 
   debounceTimer = setTimeout(() => {
-    const searchInput = document.querySelector(".header-input").value;
+    const searchInput = headerInput.value;
     filterMovies(searchInput);
   }, 500);
 });
+
+// --------------------------------------------------------------
 
 //모달 열기/닫기
 const modal = document.querySelector(".modal");
@@ -197,6 +200,7 @@ bookmarkBtn.addEventListener("click", () => {
   }
 });
 
+// 북마크 영화 카드 렌더링
 function showBookmarks(bookmarks) {
   movieContainer.innerHTML = "";
 
@@ -220,7 +224,7 @@ function showBookmarks(bookmarks) {
         <p class="movie-rating">평점: ${bookmark.vote_average}</p>
       </div>
     `;
-    movieContainer.appendChild(movieCard); // movieContainer.innerHTML += tempHtml; 대신 시도 -> dom 관련해서 공부
+    movieContainer.appendChild(movieCard);
 
     movieCard.addEventListener("click", () => {
       fetchMovieDetails(bookmark.id);
