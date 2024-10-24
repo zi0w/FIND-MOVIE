@@ -1,3 +1,7 @@
+const API_BASE_URL = "https://api.themoviedb.org/3";
+const API_KEY = "Bearer eyJhbGciOiJIUzI1NiJ9...";
+const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
 let movies = []; // fetch로 받은 영화 정보를 담을 전역 변수
 let currentMovie = null; // 모달에 표시된 영화 정보를 저장할 전역 변수
 const bookmarkBtn = document.querySelector(".header-bookmark-btn");
@@ -7,14 +11,13 @@ const options = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNTEwNjllNjBmNzFlMjk3NWRkNTUyM2I1ZTczNzQ4NSIsIm5iZiI6MTcyOTA1ODI3Ny4wMzQ3OTgsInN1YiI6IjY3MGY0ZWYxMDQzMzFkYjRiMTEyNjg2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.R5AdKtVPHNTL017i66FsKELD9B3kqfMzH1UUFjOJx68",
+    Authorization: API_KEY,
   },
 };
 
 fetch(
   //url 변경
-  "https://api.themoviedb.org/3/movie/top_rated?language=ko-KR&page=1",
+  `${API_BASE_URL}/movie/top_rated?language=ko-KR&page=1`,
   options
 )
   .then((response) => response.json())
@@ -36,7 +39,7 @@ function displayMovies(movieList) {
     <div class="card-box" data-id="${movie.id}">
       <div class="card-image-box">
         <img class="movie-image" 
-        src="https://image.tmdb.org/t/p/w500${movie.poster_path}" 
+        src=${POSTER_BASE_URL}${movie.poster_path}" 
         alt="${movie.title} 포스터 이미지"/>
       </div>
       <div class="card-text-box">
@@ -96,7 +99,7 @@ document
 
 // 영화 세부정보 받아오고 모달로 띄워주기
 function fetchMovieDetails(movieId) {
-  const url = `https://api.themoviedb.org/3/movie/${movieId}?language=ko-KR`;
+  const url = `${API_BASE_URL}/movie/${movieId}?language=ko-KR`;
 
   fetch(url, options)
     .then((response) => response.json())
@@ -122,7 +125,7 @@ function updateModal(movie) {
   ).textContent = `평점: ${movie.vote_average}`;
   document.querySelector(
     ".modal-image-element"
-  ).src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  ).src = `${POSTER_BASE_URL}${movie.poster_path}`;
   document.querySelector(
     ".modal-image-element"
   ).alt = `${movie.title} 포스터 이미지`;
@@ -218,7 +221,7 @@ function showBookmarks(bookmarks) {
     movieCard.innerHTML = `   
       <div class="card-image-box">
         <img class="movie-image" 
-        src="https://image.tmdb.org/t/p/w500${bookmark.poster_path}" 
+        src="${POSTER_BASE_URL}${bookmark.poster_path}" 
         alt="${bookmark.title} 포스터 이미지"/>
       </div>
       <div class="card-text-box">
