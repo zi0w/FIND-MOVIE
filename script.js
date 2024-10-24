@@ -97,19 +97,33 @@ document
     }
   });
 
-// 영화 세부정보 받아오고 모달로 띄워주기
-function fetchMovieDetails(movieId) {
+// // 영화 세부정보 받아오고 모달로 띄워주기
+// function fetchMovieDetails(movieId) {
+//   const url = `${API_BASE_URL}/movie/${movieId}?language=ko-KR`;
+
+//   fetch(url, options)
+//     .then((response) => response.json())
+//     .then((movie) => {
+//       updateModal(movie);
+//       modal.style.display = "block";
+//     })
+//     .catch((err) => {
+//       console.error("에러 발생: ", err);
+//     });
+// }
+
+async function fetchMovieDetails(movieId) {
   const url = `${API_BASE_URL}/movie/${movieId}?language=ko-KR`;
 
-  fetch(url, options)
-    .then((response) => response.json())
-    .then((movie) => {
-      updateModal(movie);
-      modal.style.display = "block";
-    })
-    .catch((err) => {
-      console.error("에러 발생: ", err);
-    });
+  try {
+    const response = await fetch(url, options);
+    const movie = await response.json();
+    updateModal(movie);
+    modal.style.display = "block";
+  } catch (err) {
+    console.error("에러 발생: ", err);
+    alert("에러가 발생했습니다. 다시 시도해주세요.");
+  }
 }
 
 // 모달 페이지 생성함수
