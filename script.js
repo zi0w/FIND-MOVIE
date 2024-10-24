@@ -97,21 +97,6 @@ document
     }
   });
 
-// // 영화 세부정보 받아오고 모달로 띄워주기
-// function fetchMovieDetails(movieId) {
-//   const url = `${API_BASE_URL}/movie/${movieId}?language=ko-KR`;
-
-//   fetch(url, options)
-//     .then((response) => response.json())
-//     .then((movie) => {
-//       updateModal(movie);
-//       modal.style.display = "block";
-//     })
-//     .catch((err) => {
-//       console.error("에러 발생: ", err);
-//     });
-// }
-
 async function fetchMovieDetails(movieId) {
   const url = `${API_BASE_URL}/movie/${movieId}?language=ko-KR`;
 
