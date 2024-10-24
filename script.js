@@ -15,20 +15,20 @@ const options = {
   },
 };
 
-fetch(
-  //url 변경
-  `${API_BASE_URL}/movie/top_rated?language=ko-KR&page=1`,
-  options
-)
-  .then((response) => response.json())
-  .then((response) => {
-    movies = response.results;
+async function fetchTopRatedMovies() {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/movie/top_rated?language=ko-KR&page=1`
+    );
+    const data = await response.json();
+    movies = data.results;
     displayMovies(movies);
-  })
-  .catch((err) => {
-    console.error("에러 발생: ", err);
+  } catch (err) {
+    console.log("에러 발생 ", err);
     alert("에러가 발생했습니다. 다시 시도해 주세요.");
-  });
+  }
+}
+fetchTopRatedMovies();
 
 // 영화 카드 렌더링
 function displayMovies(movieList) {
@@ -230,10 +230,6 @@ function showBookmarks(bookmarks) {
       </div>
     `;
     movieContainer.appendChild(movieCard);
-
-    // movieCard.addEventListener("click", () => {
-    //   fetchMovieDetails(bookmark.id);
-    // });
 
     movieContainer.addEventListener("click", (event) => {
       const cardBox = event.target.closest(".card-box");
