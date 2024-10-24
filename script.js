@@ -231,8 +231,16 @@ function showBookmarks(bookmarks) {
     `;
     movieContainer.appendChild(movieCard);
 
-    movieCard.addEventListener("click", () => {
-      fetchMovieDetails(bookmark.id);
+    // movieCard.addEventListener("click", () => {
+    //   fetchMovieDetails(bookmark.id);
+    // });
+
+    movieContainer.addEventListener("click", (event) => {
+      const cardBox = event.target.closest(".card-box");
+      if (cardBox) {
+        const movieId = cardBox.dataset.id;
+        fetchMovieDetails(movieId);
+      }
     });
   });
 }
