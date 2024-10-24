@@ -73,13 +73,15 @@ headerInput.addEventListener("input", function () {
 
 // --------------------------------------------------------------
 
-//모달 열기/닫기
+//모달 닫기
 const modal = document.querySelector(".modal");
 const modalClose = document.querySelector(".closing-btn");
 
-modalClose.addEventListener("click", () => {
+function closeModal() {
   modal.style.display = "none";
-});
+}
+
+modalClose.addEventListener("click", closeModal);
 
 // 이벤트 위임
 document
